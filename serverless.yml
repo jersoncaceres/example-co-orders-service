@@ -6,12 +6,70 @@ plugins:
 provider:
   name: aws
   runtime: python3.8
+  timeout: 30
   lambdaHashingVersion: 20201221
 
 functions:
+  get_service_by_id:
+    handler: handler.get_service_by_id
+    events:
+      - httpApi:
+          path: /services/{id}
+          method: get
+
+  get_all_services:
+    handler: handler.get_all_services
+    events:
+      - httpApi:
+          path: /services
+          method: get
+
+  get_all_order_items:
+    handler: handler.get_all_order_items
+    events:
+      - httpApi:
+          path: /order_items
+          method: get
+#  Orders crud
   get_all_orders:
     handler: handler.get_all_orders
     events:
       - httpApi:
           path: /orders
+          method: get
+
+  get_order_by_id:
+    handler: handler.get_order_by_id
+    events:
+      - httpApi:
+          path: /orders/{id}
+          method: get
+
+  create_order:
+    handler: handler.create_order
+    events:
+      - httpApi:
+          path: /orders
+          method: post
+
+  update_order:
+    handler: handler.update_order
+    events:
+      - httpApi:
+          path: /orders/{id}
+          method: put
+
+  delete_order:
+    handler: handler.delete_order
+    events:
+      - httpApi:
+          path: /orders/{id}
+          method: delete
+
+# Order number endpoint
+  count_orders:
+    handler: handler.count_orders
+    events:
+      - httpApi:
+          path: /count-orders
           method: get
